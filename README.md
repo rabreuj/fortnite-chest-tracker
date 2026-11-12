@@ -1,5 +1,10 @@
 # Fortnite Chest Tracker
 
+[![Descargas](https://img.shields.io/github/downloads/rabreuj/fortnite-chest-tracker/total?style=flat-square&color=brightgreen&label=descargas)](https://github.com/rabreuj/fortnite-chest-tracker/releases)
+[![Release](https://img.shields.io/github/v/release/rabreuj/fortnite-chest-tracker?style=flat-square&color=orange)](https://github.com/rabreuj/fortnite-chest-tracker/releases/latest)
+![Windows](https://img.shields.io/badge/Windows-10%2F11-0078D6?style=flat-square&logo=windows&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)
+
 Contador de cofres abiertos en Fortnite con cálculo de probabilidad acumulada
 para el token del Pirate Shop. Windows · Python · CustomTkinter.
 
