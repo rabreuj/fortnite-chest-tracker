@@ -108,7 +108,7 @@ Todo en `%USERPROFILE%\FortniteChestTracker\`:
 ## Ejecutar desde el código
 
 ```bat
-git clone [URL-DEL-REPO].git
+git clone https://github.com/rabreuj/fortnite-chest-tracker.git
 cd fortnite-chest-tracker
 instalar_dependencias.bat
 python fortnite_tracker.pyw --debug
