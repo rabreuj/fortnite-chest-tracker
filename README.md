@@ -68,8 +68,7 @@ El cálculo se hace en log-espacio con `log1p`/`expm1` para no perder precisión
 con probabilidades diminutas y contadores grandes.
 
 > La probabilidad por defecto (1/137500 ≈ 0,000727 %) es un valor de referencia
-> configurable, no un dato publicado oficialmente por Epic. Ajústala si tienes
-> un valor mejor.
+> configurable.
 
 ## Uso
 
@@ -156,7 +155,7 @@ el tracker al terminar de jugar.
 Uso gratuito y personal, **sin uso comercial y sin obras derivadas**, con
 **atribución obligatoria**. Consulta [LICENSE](LICENSE) para los términos completos.
 
-Creado por **[TU NOMBRE]** — [URL-DEL-REPO]
+Creado por **Raúl Abreu Jorge** — https://github.com/rabreuj/fortnite-chest-tracker.git
 
 ## Aviso
 
