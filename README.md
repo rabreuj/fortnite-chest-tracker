@@ -9,9 +9,8 @@ cofre en Fortnite (detectando la tecla **E** mantenida) y muestra una
 | Elemento | Descripción |
 |---|---|
 | **Cofres abiertos** | Contador grande que se actualiza en vivo al abrir cada cofre |
-| **Prob. del token (por cofre)** | Probabilidad `p` de que salga el token en UN cofre (editable, por defecto 0.1 %) |
+| **Prob. del token (por cofre)** | Probabilidad `p` de que salga el token en UN cofre|
 | **Prob. acumulada** | Método del complemento: `P(al menos 1 éxito) = 1 − (1 − p)ⁿ` |
-| **Icono del cofre** | Cofre dorado estilo Fortnite dibujado junto a las probabilidades |
 | **Barra de progreso** | Progreso hacia el ~90 % de probabilidad acumulada |
 | **Cofres para ~50 % / ~90 %** | Inversión del complemento: `n = ⌈ln(1−objetivo) / ln(1−p)⌉` |
 | **Prob. token (%) editable** | Cámbiala si Epic ajusta la tasa real; se guarda en `config.json` |
