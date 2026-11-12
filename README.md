@@ -5,8 +5,19 @@ para el token del Pirate Shop. Windows · Python · CustomTkinter.
 
 ## Descargar
 
+<<<<<<< HEAD
 **[Última release](../../releases/latest)** → `FortniteChestTracker-v1.1-win64.zip`
 Descomprime y ejecuta el `.exe`. No necesita Python ni instalación.
+=======
+| Elemento | Descripción |
+|---|---|
+| **Cofres abiertos** | Contador grande que se actualiza en vivo al abrir cada cofre |
+| **Prob. del token (por cofre)** | Probabilidad `p` de que salga el token en UN cofre|
+| **Prob. acumulada** | Método del complemento: `P(al menos 1 éxito) = 1 − (1 − p)ⁿ` |
+| **Barra de progreso** | Progreso hacia el ~90 % de probabilidad acumulada |
+| **Cofres para ~50 % / ~90 %** | Inversión del complemento: `n = ⌈ln(1−objetivo) / ln(1−p)⌉` |
+| **Prob. token (%) editable** | Cámbiala si Epic ajusta la tasa real; se guarda en `config.json` |
+>>>>>>> efe1a2c4c77b5bde2dca714cf72191d9c0384b33
 
 > Windows SmartScreen puede avisar de que el ejecutable no está firmado. Es
 > normal en proyectos sin certificado de firma: **Más información → Ejecutar de
