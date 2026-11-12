@@ -1,0 +1,97 @@
+LICENCIA DE USO — FORTNITE CHEST TRACKER
+Copyright (c) 2026 Raúl Abreu Jorge. Todos los derechos reservados.
+
+Este software se distribuye de forma gratuita para su uso personal. No es
+software de código abierto: todos los derechos que no se concedan expresamente
+aquí quedan reservados al autor.
+
+
+1. AUTORÍA Y TITULARIDAD
+
+   El autor original y único titular de este software es Raúl Abreu Jorge.
+   El código, el diseño, la documentación y los recursos gráficos originales
+   son de su autoría. Esta licencia no transfiere la propiedad del software ni
+   de ninguno de sus componentes.
+
+
+2. LO QUE SÍ PUEDES HACER
+
+   2.1. Descargar y usar el software de forma gratuita, sin límite de tiempo,
+        para fines personales y no comerciales.
+   2.2. Compartir el software ORIGINAL, sin modificar y sin cobrar, siempre
+        que se conserve íntegro este archivo de licencia y se mencione al
+        autor conforme a la cláusula 4.
+   2.3. Enlazar, recomendar o reseñar el proyecto, citando al autor y el
+        repositorio oficial: https://github.com/rabreuj/fortnite-chest-tracker.git
+
+
+3. LO QUE NO PUEDES HACER
+
+   3.1. USO COMERCIAL. Queda prohibido vender, alquilar, sublicenciar o
+        monetizar el software, total o parcialmente, así como incluirlo en
+        productos o servicios de pago, detrás de muros de pago, sistemas de
+        suscripción, publicidad de pago o cualquier esquema que genere
+        ingresos directa o indirectamente a partir de él.
+
+   3.2. OBRAS DERIVADAS. Queda prohibido modificar, adaptar, traducir,
+        descompilar, hacer ingeniería inversa o crear trabajos derivados del
+        software, y en particular distribuir versiones modificadas. Si
+        quieres proponer una mejora, contacta con el autor.
+
+   3.3. APROPIACIÓN. Queda prohibido eliminar o alterar los avisos de
+        copyright, presentar el software como propio, atribuirse su autoría
+        total o parcial, o registrarlo o publicarlo bajo otro nombre o marca.
+
+   3.4. REDISTRIBUCIÓN NO AUTORIZADA. Queda prohibido volver a publicar el
+        software en tiendas de aplicaciones, plataformas de distribución,
+        repositorios propios o cualquier otro canal presentándolo como
+        creación propia o sin la atribución exigida.
+
+   3.5. USO LESIVO. Queda prohibido emplear el software para actividades
+        ilícitas o para infringir los términos de servicio de terceros.
+
+
+4. ATRIBUCIÓN OBLIGATORIA
+
+   Cualquier uso, mención, publicación, captura, vídeo, directo, artículo o
+   redistribución permitida debe incluir de forma visible y legible:
+
+       Fortnite Chest Tracker — creado por Raúl Abreu Jorge
+       https://github.com/rabreuj/fortnite-chest-tracker.git
+
+   La atribución no puede quedar oculta, eliminada ni presentarse de forma
+   que induzca a pensar que la autoría es de otra persona.
+
+
+5. TERMINACIÓN
+
+   El incumplimiento de cualquiera de estas condiciones revoca
+   automáticamente los permisos concedidos. Al revocarse, debes dejar de usar
+   el software y eliminar todas las copias en tu poder.
+
+
+6. SIN GARANTÍA
+
+   EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA
+   O IMPLÍCITA, INCLUIDAS LAS DE COMERCIABILIDAD, IDONEIDAD PARA UN FIN
+   DETERMINADO O AUSENCIA DE ERRORES. EL AUTOR NO SERÁ RESPONSABLE DE NINGÚN
+   DAÑO, PÉRDIDA DE DATOS, SANCIÓN EN SERVICIOS DE TERCEROS O PERJUICIO
+   DERIVADO DEL USO O LA IMPOSIBILIDAD DE USO DEL SOFTWARE.
+
+
+7. AVISO SOBRE TERCEROS
+
+   Este proyecto no está afiliado, patrocinado ni respaldado por Epic Games.
+   Fortnite y las marcas relacionadas pertenecen a Epic Games, Inc. Los
+   recursos gráficos de terceros conservan la titularidad de sus respectivos
+   propietarios y no quedan cubiertos por esta licencia.
+
+   El software es un contador pasivo de pulsaciones de teclado y una
+   calculadora de probabilidades: no modifica el juego ni interactúa con él.
+
+
+8. CONTACTO
+
+   Para permisos distintos a los aquí concedidos, colaboraciones o
+   aclaraciones sobre esta licencia, contacta con el autor a través del
+   repositorio oficial: https://github.com/rabreuj/fortnite-chest-tracker.git

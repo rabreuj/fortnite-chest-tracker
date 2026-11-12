@@ -1,87 +1,154 @@
-# Fortnite Chest Tracker 🧰
+# Fortnite Chest Tracker
 
-Programa en Python que corre en segundo plano, cuenta cuántas veces abres un
-cofre en Fortnite (detectando la tecla **E** mantenida) y muestra una
-**interfaz gráfica moderna** con las probabilidades del token.
+Contador de cofres abiertos en Fortnite con cálculo de probabilidad acumulada
+para el token del Pirate Shop. Windows · Python · CustomTkinter.
 
-## Qué muestra la interfaz
+## Descargar
 
-| Elemento | Descripción |
-|---|---|
-| **Cofres abiertos** | Contador grande que se actualiza en vivo al abrir cada cofre |
-| **Prob. del token (por cofre)** | Probabilidad `p` de que salga el token en UN cofre (editable, por defecto 0.1 %) |
-| **Prob. acumulada** | Método del complemento: `P(al menos 1 éxito) = 1 − (1 − p)ⁿ` |
-| **Icono del cofre** | Cofre dorado estilo Fortnite dibujado junto a las probabilidades |
-| **Barra de progreso** | Progreso hacia el ~90 % de probabilidad acumulada |
-| **Cofres para ~50 % / ~90 %** | Inversión del complemento: `n = ⌈ln(1−objetivo) / ln(1−p)⌉` |
-| **Prob. token (%) editable** | Cámbiala si Epic ajusta la tasa real; se guarda en `config.json` |
+**[Última release](../../releases/latest)** → `FortniteChestTracker-v1.1-win64.zip`
+Descomprime y ejecuta el `.exe`. No necesita Python ni instalación.
 
-Con p = 0.1 %: a los **693 cofres** tienes ~50 % de probabilidad de haber
-visto el token, y a los **2.302 cofres** ~90 %.
+> Windows SmartScreen puede avisar de que el ejecutable no está firmado. Es
+> normal en proyectos sin certificado de firma: **Más información → Ejecutar de
+> todas formas**. El código fuente está en este repositorio.
 
-## Requisitos
+## Qué hace
 
-- Windows 10/11 (también funciona en Linux/macOS)
-- Python 3.9+ → https://python.org (marca "Add Python to PATH")
+Detecta la pulsación mantenida de **E** (250 ms por defecto) y cuenta un cofre.
+Es un contador global de teclado: **no inyecta nada en el juego ni lee su
+memoria**. Cuenta E en cualquier aplicación, así que **ciérralo cuando dejes de
+jugar** o inflarás el contador.
 
-```bat
-pip install pynput customtkinter Pillow
+- Contador persistente, **editable a mano** si ya llevabas cofres antes de usar la app.
+- Probabilidad base configurable, con **Restaurar** y **Deshacer**.
+- **Multiplicador de evento** (x1 / x1.5 / x2 o el que quieras).
+- Probabilidad acumulada exacta y cofres restantes para el ~50 % y ~90 %.
+- Registro legible de cada apertura y log de diagnóstico.
+
+## Las dos magnitudes (importante)
+
+| | Depende de | ¿Cambia al tocar el multiplicador? |
+|---|---|---|
+| **Prob. acumulada** (tarjeta verde) | solo los cofres ya abiertos | **No** |
+| **Camino al 90 %** (barra) | abiertos + cofres que faltan | **Sí** |
+
+Activar x2 no abre cofres, así que tu probabilidad acumulada no cambia. Lo que
+cambia es la distancia al objetivo: la barra avanza y los "Restantes" bajan.
+
+## La matemática
+
+Con `n` cofres a probabilidad `p` por cofre, la probabilidad de al menos un
+token es el complemento de no conseguir ninguno:
+
+```
+P = 1 - (1 - p)^n
 ```
 
-*(Opcional para icono en la bandeja: `pip install pystray`)*
+Con multiplicadores distintos en el histórico, cada cofre tiene su propia tasa:
+
+```
+P = 1 - ∏ (1 - mᵢ · p)^nᵢ
+```
+
+**El multiplicador no es retroactivo.** Si abriste 500 cofres a x1 y luego 100 a
+x2, tu probabilidad real es `1 - (1-p)^500 · (1-2p)^100`, no `1 - (1-2p)^600`.
+
+El cálculo se hace en log-espacio con `log1p`/`expm1` para no perder precisión
+con probabilidades diminutas y contadores grandes.
+
+> La probabilidad por defecto (1/137500 ≈ 0,000727 %) es un valor de referencia
+> configurable, no un dato publicado oficialmente por Epic. Ajústala si tienes
+> un valor mejor.
 
 ## Uso
 
-- **Doble clic** sobre `fortnite_tracker.pyw` → abre la ventana del tracker.
-- Desde terminal, con opciones:
+| Campo | Qué hace |
+|---|---|
+| **Prob. token (%)** | Probabilidad base por cofre. `Restaurar` vuelve al valor de referencia; `Deshacer` recupera los últimos 12 valores aplicados. |
+| **Multiplicador (x)** | Tasa de los próximos cofres. Presets x1 / x1.5 / x2, o cualquier valor entre 0.01 y 1000. Acepta decimales. |
+| **Cofres abiertos** | Fija tu total real. La diferencia se aplica al histórico x1. Reducir pide confirmación. |
 
-```bat
-python fortnite_tracker.pyw --hold 300          :: umbral de E mantendida (ms)
-python fortnite_tracker.pyw --prob 0.002        :: prob. del token (0..1)
-python fortnite_tracker.pyw --tray              :: + icono en la bandeja
-python fortnite_tracker.pyw --minimized --tray  :: arrancar oculto
+Enter aplica en los tres campos. El aviso naranja te recuerda volver a x1 al
+acabar el evento.
+
+**Línea de comandos:**
+
+```
+--hold MS      ms mínimos de E para contar (def. 250)
+--prob P       probabilidad base por cofre, 0..1
+--mult X       multiplicador inicial
+--chests N     fija el total de cofres al arrancar
+--minimized    arranca oculto
+--tray         icono en el área de notificación
+--debug        log también por consola
+--multi        permite varias instancias
 ```
 
-## Cómo detecta las aperturas
+## Datos
 
-No existe API pública de Epic/Fortnite para esto, así que el contador se basa
-en detectar la pulsación de **E mantenida ≥ 250 ms** (el anillo de interacción
-del cofre tarda ~0.5 s; un toque casual de teclado dura <150 ms, por eso 250
-descarta falsos positivos sin perder aperturas rápidas). Hay además un
-*cooldown* de 1 s para evitar dobles conteos.
-
-> ⚠️ Es un detector **aproximado**: contará cualquier E mantenida (también
-> fuera del juego). Revisa `cofres.log`: registra la duración real de cada
-> pulsación para que calibres el umbral con `--hold`.
-
-## Archivos que genera
-
-En `C:\Users\<TU_USUARIO>\FortniteChestTracker\`:
+Todo en `%USERPROFILE%\FortniteChestTracker\`:
 
 | Archivo | Contenido |
 |---|---|
-| `cofres.log` | Un renglón por cofre: fecha, hora y ms de pulsación |
-| `estado.json` | Contador persistente (sobrevive reinicios) |
-| `config.json` | Probabilidad del token guardada desde la UI |
+| `estado.json` | Total e histórico por multiplicador |
+| `config.json` | Probabilidad base y multiplicador |
+| `cofres.log` | Una línea por cofre abierto |
+| `debug.log` | Diagnóstico (rotativo, 3 × 512 KB) |
 
-## Pruebas incluidas
-
-```bat
-python test_logic.py
-```
-
-Verifica: fórmula del complemento, inversión 50 %/90 %, umbral de 250 ms
-(100 ms no cuenta, 400 ms sí), cooldown, ignorar otras teclas y persistencia.
-
-## Empaquetar como .exe para tus amigos
+## Ejecutar desde el código
 
 ```bat
-pip install pyinstaller
-pyinstaller --noconsole --onefile --name ChestTracker fortnite_tracker.pyw
+git clone [URL-DEL-REPO].git
+cd fortnite-chest-tracker
+instalar_dependencias.bat
+python fortnite_tracker.pyw --debug
 ```
 
-El ejecutable queda en `dist\ChestTracker.exe`.
+Requiere Python 3.9+ y `pynput`, `customtkinter`, `Pillow`, `pystray`.
 
-**Importante:** avisa siempre a quien lo use de que el programa observa la
-tecla E de forma global mientras está corriendo (es un keylogger funcional,
-aunque solo cuente y no guarde texto tecleado). Que decidan ellos instalarlo.
+**Comprobar la lógica:** `python test_logic.py` (no abre la GUI ni toca tus datos).
+
+## Compilar
+
+```bat
+build.bat
+```
+
+Borra el `.spec` antiguo, limpia `build/` y `dist/`, compila con PyInstaller y
+genera el `.zip` de la release con su SHA256 en `release\`.
+
+Si el `.exe` muestra código viejo, casi siempre es un `.spec` antiguo:
+bórralo y recompila. Verifica que el título de la ventana diga la versión correcta.
+
+**Regenerar el icono:** `python crear_icono.py` crea un `.ico` multiresolución
+desde el PNG. Un PNG renombrado a `.ico` no funciona.
+
+## Solución de problemas
+
+**Deja de contar a los pocos minutos.** Era el bug crítico de v1.0, corregido en
+v1.1: una excepción silenciosa mataba el listener de teclado mientras la ventana
+seguía visible. Ahora hay un watchdog que lo reactiva solo. El indicador
+`● CAPTURA ACTIVA` y el contador de reinicios del pie te dicen si ocurre.
+
+**No cuenta con Fortnite en primer plano.** Ejecuta el tracker como
+administrador: Windows no entrega eventos de teclado a procesos de integridad
+menor cuando la ventana activa es de integridad mayor.
+
+**El icono no se ve.** El `.exe` ya lo lleva embebido. Si ves el antiguo es
+caché de Windows: `ie4uinit.exe -show`, o renombra el `.exe`.
+
+**Cuenta cofres de más.** Pulsar E en otras aplicaciones también cuenta. Cierra
+el tracker al terminar de jugar.
+
+## Licencia
+
+Uso gratuito y personal, **sin uso comercial y sin obras derivadas**, con
+**atribución obligatoria**. Consulta [LICENSE](LICENSE) para los términos completos.
+
+Creado por **[TU NOMBRE]** — [URL-DEL-REPO]
+
+## Aviso
+
+Proyecto no afiliado a Epic Games. Fortnite y sus marcas pertenecen a Epic
+Games, Inc. La herramienta es un contador pasivo de teclado y una calculadora de
+probabilidades; no modifica ni interactúa con el juego.
